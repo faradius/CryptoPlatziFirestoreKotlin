@@ -1,0 +1,47 @@
+Firestore nos proporciona muchas formas de consultar los documentos de nuestras bases de datos: consultas sencillas para ordenar o filtrar nuestros documentos a partir de un valor (por ejemplo, si name es igual a Bogotá) o consultas compuestas si necesitamos especificar más de un filtro (por ejemplo, si name es igual a Bogotá y country es igual a Colombia).
+
+Tipos de filtros para nuestras consultas:
+
+.whereEqualTo("campo-que-debemos-comparar", "valor que debe tener")
+.whereLessThan("campo-que-debemos-comparar", NúmeroMáximo)
+.whereGreaterThan("campo-que-debemos-comparar", NúmeroMínimo)
+.whereArrayContains("campo-que-debemos-comparar", "valor que debe tener nuestro array")
+Otros filtros: .whereLessThanOrEqualTo, whereGreaterThanOrEqualTo, orderBy, limit, entre otros
+Sin embargo, nuestras consultas compuestas deben seguir algunas reglas: no podemos filtrar rangos de valores en campos diferentes.
+
+✅ Ejemplos correctos:
+
+Dos filtros de igualdad en campos diferentes:
+.whereEqualTo("country", "Colombia").whereEqualTo("capital", true)
+
+Un filtro de igualdad y otro de rango en campos diferentes:
+.whereEqualTo("country", "Colombia").whereLessThan("population", 100000)
+
+Un filtro de rango y otro de ordenamiento con el mismo campo:
+.whereGreaterThan("population", 100000).orderBy("population").limit(10)
+
+???? Ejemplos incorrectos:
+
+Dos filtros de rango en campos diferentes
+.whereGreaterThan("population", 100000).whereLessThan("antiquity", 100)
+
+Un filtro de rango y otro de ordenamiento en campos diferentes:
+.whereGreaterThan("population", 100000).orderBy("country")
+
+
+Otros Ejemplos:
+https://firebase.google.com/docs/firestore/query-data/queries?hl=es-419
+https://firebase.google.com/docs/firestore/query-data/query-cursors?hl=es-419
+
+
+Persistencia de dato ofline en firestore
+
+val settings = FirebaseFirestoreSettings.Builder().setPersistenceEnabled(true).build()
+
+db.firestoreSettings = settings
+
+Configuración de Reglas de seguridad
+
+https://firebase.google.com/docs/firestore/security/insecure-rules
+
+https://firebase.google.com/docs/firestore/security/test-rules-emulator

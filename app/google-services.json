@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "559212674560",
+    "project_id": "cryptoplatzi",
+    "storage_bucket": "cryptoplatzi.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:559212674560:android:4c0a37d045da460abfe2e5",
+        "android_client_info": {
+          "package_name": "com.example.cryptoplatzi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "559212674560-940tfdqm41e119b5p4ki6929p2g8fqj6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4b3acF4svqsDOj_dCAlqMLkBKiCmgJhU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "559212674560-940tfdqm41e119b5p4ki6929p2g8fqj6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

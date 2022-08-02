@@ -1,0 +1,61 @@
+
+
+class MainActivity : AppCompatActivity() {
+
+    private val auth: FirebaseAuth = FirebaseAuth.getInstance()
+    lateinit var firestoreService: FirestoreService
+    private val USERNAME_KEY = "username_key"
+    private val TAG = "LoginActivity"
+    val context:Context = this
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+        firestoreService = FirestoreService(FirebaseFirestore.getInstance())
+
+        val etUserName = findViewById<EditText>(R.id.etUser)
+        val btnLogin = findViewById<Button>(R.id.btnLogin)
+
+       /* Probanco como usar un hashMap
+       val city = HashMap<String, Any>()
+        city.put("telefono","782 114 25 25")
+        city["name"] = "Bogota"
+        city["state"] = "Cundinamarca"
+        city["country"] = "Colombia"
+
+        Toast.makeText(this,"forma 1: ${city.get("telefono").toString()} forma2: ${city["name"]}",Toast.LENGTH_SHORT).show()
+        */
+
+        btnLogin.setOnClickListener {view->
+            view.isEnabled = false
+            auth.signInAnonymously().addOnCompleteListener { task ->
+                if (task.isSuccessful){
+                    val userDato = etUserName.text.toString()
+                    val user = User()
+                    user.username = userDato
+                    firestoreService.setDocument(user, USERS_COLLECTION_NAME, user.username, object :Callback<Void>{
+                        override fun onSuccess(result: Void?) {
+                            val intent = Intent(context,TraderActivity::class.java)
+                            intent.putExtra(USERNAME_KEY,user)
+                            startActivity(intent)
+                            finish()
+                        }
+
+                        override fun onFailed(exception: Exception) {
+                            Toast.makeText(context,"Sucedio un Error", Toast.LENGTH_SHORT).show()
+                            view.isEnabled = true
+                        }
+
+                    })
+                    //saveUserAndStarMainActivity(user,view)
+
+                }else{
+                    //showErrorMessge(view)
+                    Toast.makeText(this,"Sucedio un Error", Toast.LENGTH_SHORT).show()
+                    view.isEnabled
+                }
+
+            }
+        }
+
+    }
